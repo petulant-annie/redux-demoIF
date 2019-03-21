@@ -34,13 +34,22 @@ interface ICheckedState {
   commentValue: string;
 }
 
-class Demo extends React.Component<{}, ICheckedState> {
+interface IProps {
+  demoState: [];
+  toggleCheckbox: (checkboxes: string[]) => void;
+  showPreloader: (showPreloader: boolean) => void;
+  error: (error: boolean) => void;
+  emailFieldValue: (value: {}) => void;
+  commentFieldValue: (commentValue: string) => void;
+}
+
+class Demo extends React.Component<IProps, ICheckedState> {
   container: HTMLElement;
   preloaderContainer: HTMLElement;
   ticket: string;
   applicantRef = React.createRef<HTMLDivElement>();
   preloaderRef = React.createRef<HTMLDivElement>();
-  constructor(props: ICheckedState) {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       checkboxes: [
@@ -251,7 +260,7 @@ class Demo extends React.Component<{}, ICheckedState> {
   }
 }
 
-const mapStateToProps = (state: {}) => state;
+const mapStateToProps = (state: IProps) => state;
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
   {
