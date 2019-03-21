@@ -160,7 +160,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
       <Applicant
         container={this.applicantRef.current}
         validation={this.emailValidation()}
-        textValidation={this.textValidation}
+        textValidation={this.textValidation()}
         emailValid={emailValid}
       />
     );
