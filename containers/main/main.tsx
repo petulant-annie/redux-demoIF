@@ -110,7 +110,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
       if (val || numVal) {
         this.setState({ value: { [(val ? 'email' : 'phone')]: e.target.value }, emailValid: true });
-        this.props.emailFieldValue(this.state.value);
+        this.props.emailFieldValue(e.target.value);
       } else {
         this.setState({ value: null, emailValid: false });
       }
