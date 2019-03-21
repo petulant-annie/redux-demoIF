@@ -1,13 +1,14 @@
-import { ICheckboxes, IShowPreloader, IError, IFieldValue } from '../actions/demoActions';
+import {
+  ICheckboxes,
+  IShowPreloader,
+  IError,
+  IEmailFieldValue,
+  ICommentValue,
+} from '../actions/demoActions';
 
 const INITIAL_STATE = [
   {
-    checkboxes: [
-      false,
-      false,
-      false,
-      false,
-    ],
+    checkboxes: ['', '', '', ''],
     showPreloader: false,
     error: true,
     value: {},
@@ -17,7 +18,7 @@ const INITIAL_STATE = [
 
 const demoState = (
   state = INITIAL_STATE,
-  action: ICheckboxes & IShowPreloader & IError & IFieldValue,
+  action: ICheckboxes & IShowPreloader & IError & ICommentValue & IEmailFieldValue,
 ) => {
   switch (action.type) {
     case 'TOGGLE_CHECKBOX':
@@ -41,7 +42,7 @@ const demoState = (
           error: action.error,
         },
       ];
-    case 'FIELDS_VALUE':
+    case 'EMAIL_FIELD_VALUE' && 'COMMENT_FIELD_VALUE':
       return [
         ...state,
         {

@@ -3,7 +3,13 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Typography, Button } from 'lib-react-components';
 
-import { toggleCheckbox, showPreloader, error, fieldsValue } from '../../actions/demoActions';
+import {
+  toggleCheckbox,
+  showPreloader,
+  error,
+  emailFieldValue,
+  commentFieldValue,
+} from '../../actions/demoActions';
 import Header from '../../components/header/header';
 import Verification from '../verification-block/verification';
 import Transactions from '../transaction-block/transaction';
@@ -67,6 +73,7 @@ class Demo extends React.Component<{}, ICheckedState> {
       if (checkboxes[i] !== null) getStartedDisabled = false;
     }
     this.setState({ checkboxes: (checkboxes), getStartedDisabled: (getStartedDisabled) });
+    this.props.toggleCheckbox(this.state.checkboxes);
   }
 
   handleEmailClick() {
@@ -94,6 +101,7 @@ class Demo extends React.Component<{}, ICheckedState> {
 
       if (val || numVal) {
         this.setState({ value: { [(val ? 'email' : 'phone')]: e.target.value }, emailValid: true });
+        this.props.emailFieldValue(this.state.value);
       } else {
         this.setState({ value: null, emailValid: false });
       }
@@ -105,6 +113,7 @@ class Demo extends React.Component<{}, ICheckedState> {
   textValidation() {
     const comment = (e: React.ChangeEvent<HTMLInputElement>) => {
       this.setState({ commentValue: e.target.value });
+      this.props.commentFieldValue(this.state.commentValue);
     };
 
     return comment;
@@ -118,6 +127,8 @@ class Demo extends React.Component<{}, ICheckedState> {
           .catch(err => (this.setState({ error: false })));
       }
       finally { start; }
+      this.props.showPreloader(this.state.showPreloader);
+      this.props.error(this.state.error);
     };
 
     return start;
@@ -247,7 +258,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
     toggleCheckbox,
     showPreloader,
     error,
-    fieldsValue,
+    emailFieldValue,
+    commentFieldValue,
   },
   dispatch);
 

@@ -1,6 +1,6 @@
 export interface ICheckboxes {
   type: string;
-  checkboxes: boolean;
+  checkboxes: string[];
 }
 
 export interface IShowPreloader {
@@ -13,9 +13,13 @@ export interface IError {
   error: boolean;
 }
 
-export interface IFieldValue {
+export interface IEmailFieldValue {
   type: string;
   value: {};
+}
+
+export interface ICommentValue {
+  type: string;
   commentValue: string;
 }
 
@@ -34,8 +38,12 @@ export const error = (error: IError) => ({
   type: 'ERROR',
 });
 
-export const fieldsValue = (value: IFieldValue, commentValue: IFieldValue) => ({
+export const emailFieldValue = (value: IEmailFieldValue) => ({
   value,
+  type: 'EMAIL_FIELD_VALUE',
+});
+
+export const commentFieldValue = (commentValue: ICommentValue) => ({
   commentValue,
-  type: 'FIELDS_VALUE',
+  type: 'COMMENT_FIELD_VALUE',
 });
