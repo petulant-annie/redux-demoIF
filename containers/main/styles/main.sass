@@ -1,0 +1,122 @@
+*
+  margin: 0
+  padding: 0
+
+body 
+  height: 100%
+  font-family: 'Open Sans', sans-serif
+  overflow: hidden
+  width: 100%
+
+.main-block
+  width: 100%
+
+#action-section
+  height: calc(100% - 150px)
+  left: 0
+  overflow-y: scroll
+  position: absolute
+  padding: 96px 40px 55px
+  top: 60px
+  width: calc(60% - 80px)
+
+.section 
+  margin: 0 auto
+  max-width: 540px
+  padding: 40px 0
+
+.border
+  border-bottom: 1px solid #f0f1f2
+
+.section-name 
+  color: #2b3752
+  font-size: 18px
+  font-weight: 700
+  padding-bottom: 28px
+
+.first-section
+  font-size: 22px
+
+.section-p
+  color: grey
+  font-size: 15px
+  font-weight: 300
+
+.bottom-block 
+  display: flex
+  justify-content: space-between
+
+.start-btn
+  font-weight: 300
+  letter-spacing: .35px
+  margin-top: 50px
+
+.slider-wrapper 
+  background-color: #f0f1f2
+  height: calc(100vh - 80px)
+  padding: 300px 30px 55px
+  position: fixed
+  right: 0
+  top: 0
+  width: calc(40% - 60px)
+  text-align: center
+
+.pic-wrapper
+  line-height: 200px
+  text-align: center
+
+.slider-img
+  vertical-align: middle
+
+.slider-h
+  font-size: 22px
+  padding: 50px 0 10px
+
+.slider-p
+  font-size: 16px
+
+@keyframes loader
+  0%
+    transform: rotate(0deg);
+  100%
+    transform: rotate(360deg);
+
+@media screen and (max-width: 768px)
+  body 
+    overflow: auto
+  
+  .slider-wrapper 
+    box-sizing: border-box
+    max-height: 560px
+    order: 2
+    padding: 80px 30px 26px
+    position: static
+    width: 100%
+
+  #action-section
+    box-sizing: border-box
+    height: 100%
+    order: 3
+    padding: 30px 30px 30px
+    position: static
+    width: 100%
+
+  .section 
+    width: 100%
+
+  .main-block
+    display: flex
+    flex-direction: column
+
+  .bottom-block 
+    flex-direction: column
+
+  .start-btn
+    width: 100%
+
+  .slider-h
+    font-size: 18px
+  
+  .slider-p
+    font-size: 13px
+    letter-spacing: .4px

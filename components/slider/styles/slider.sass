@@ -1,0 +1,56 @@
+#slider 
+  display: inline-block
+  font-size: 0
+  height: 100%
+  margin: 0 auto
+  overflow: hidden
+  position: relative
+
+.controlBar 
+  left: calc(50% - 30px)
+  padding-top: 150px
+  position: absolute
+  z-index: 5
+
+.pagination 
+  background-color: #cbcfd7
+  border: none
+  border-radius: 50%
+  cursor: pointer
+  display: inline-block
+  height: 8px
+  margin: 5px
+  outline: none
+  width: 8px
+
+.activeButton 
+  background-color: #ffc200
+
+.slide 
+  display: none
+
+.active 
+  display: inline-block
+  max-width: 310px
+ 
+.fade-current 
+  animation-name: fade-appear
+  animation-duration: 1.5s
+  max-width: 310px
+  top: 0
+
+@keyframes fade-appear 
+  0% 
+    opacity: 0
+  100% 
+    opacity: 1
+
+@media screen and (max-width: 768px)
+  .controlBar 
+    top: 280px
+
+  .active 
+    max-width: 200px
+
+  .fade-current 
+    max-width: 200px
