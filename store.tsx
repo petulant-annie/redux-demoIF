@@ -1,14 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { logger } from 'redux-logger';
 
 import demoState from './reducers/demoReducers';
+import demoMiddleware from './middleware/demoMiddleware';
 
 const store = createStore(
   combineReducers({
     demoState,
   }),
   {},
-  applyMiddleware(logger),
+  applyMiddleware(demoMiddleware),
 );
 
 export default store;

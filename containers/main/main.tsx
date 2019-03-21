@@ -131,13 +131,13 @@ class Demo extends React.Component<IProps, ICheckedState> {
   startRequest() {
     const start = () => {
       this.setState({ showPreloader: true, getStartedDisabled: true });
+      this.props.showPreloader(this.state.showPreloader);
       try {
         apiRequests(this.state)
           .catch(err => (this.setState({ error: false })));
+        this.props.error(this.state.error);
       }
       finally { start; }
-      this.props.showPreloader(this.state.showPreloader);
-      this.props.error(this.state.error);
     };
 
     return start;
