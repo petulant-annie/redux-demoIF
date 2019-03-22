@@ -1,49 +1,46 @@
-export interface ICheckboxes {
-  type: string;
+import { Action } from 'redux';
+
+export interface ISetCheckboxesAction extends Action {
   checkboxes: string[];
 }
 
-export interface IShowPreloader {
-  type: string;
+export interface ISetPreloaderAction extends Action {
   showPreloader: boolean;
 }
 
-export interface IError {
-  type: string;
+export interface ICheckErrorAction extends Action {
   error: boolean;
 }
 
-export interface IEmailFieldValue {
-  type: string;
+export interface ISetEmailFieldValueAction extends Action {
   value: {};
 }
 
-export interface ICommentValue {
-  type: string;
+export interface ISetCommentValueAction extends Action {
   commentValue: string;
 }
 
-export const toggleCheckbox = (checkboxes: ICheckboxes) => ({
+export const toggleCheckbox = (checkboxes: ISetCheckboxesAction) => ({
   checkboxes,
   type: 'TOGGLE_CHECKBOX',
 });
 
-export const showPreloader = (showPreloader: IShowPreloader) => ({
+export const showPreloader = (showPreloader: ISetPreloaderAction) => ({
   showPreloader,
   type: 'SHOW_PRELOADER',
 });
 
-export const error = (error: IError) => ({
+export const error = (error: ICheckErrorAction) => ({
   error,
   type: 'ERROR',
 });
 
-export const emailFieldValue = (value: IEmailFieldValue) => ({
+export const emailFieldValue = (value: ISetEmailFieldValueAction) => ({
   value,
   type: 'EMAIL_FIELD_VALUE',
 });
 
-export const commentFieldValue = (commentValue: ICommentValue) => ({
+export const commentFieldValue = (commentValue: ISetCommentValueAction) => ({
   commentValue,
   type: 'COMMENT_FIELD_VALUE',
 });

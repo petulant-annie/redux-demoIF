@@ -12,15 +12,6 @@ interface IClickedEvent {
 }
 
 export default class Transactions extends React.Component<IClickedEvent> {
-  handleEmailClick: React.MouseEventHandler<HTMLButtonElement>;
-  handleEmailHide: React.MouseEventHandler<HTMLButtonElement>;
-
-  constructor(props: IClickedEvent) {
-    super(props);
-    this.handleEmailClick = props.showEmail;
-    this.handleEmailHide = props.hideEmail;
-  }
-
   render() {
     const { applicantShown } = this.props;
 
@@ -33,7 +24,7 @@ export default class Transactions extends React.Component<IClickedEvent> {
           bgType="stroke"
           color={applicantShown ? 'light_grey' : 'primary'}
           textColor={applicantShown ? 'black' : 'primary'}
-          onClick={this.handleEmailHide}
+          onClick={this.props.hideEmail}
         >
           <SvgRedirrect fill={applicantShown ? '#5b647d' : '#3d7dff'} />
           <span className="btn-text">Redirect</span>
@@ -45,7 +36,7 @@ export default class Transactions extends React.Component<IClickedEvent> {
           bgType="stroke"
           color={applicantShown ? 'primary' : 'light_grey'}
           textColor={applicantShown ? 'primary' : 'black'}
-          onClick={this.handleEmailClick}
+          onClick={this.props.showEmail}
         >
           <SvgEmail fill={(applicantShown ? '#3d7dff' : '#5b647d')} />
           <span className="btn-text">Email or SMS</span>

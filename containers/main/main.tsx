@@ -31,7 +31,6 @@ interface ICheckedState {
   error: boolean;
   emailValid: boolean;
   value: {};
-  commentValue: string;
 }
 
 interface IProps {
@@ -64,7 +63,6 @@ class Demo extends React.Component<IProps, ICheckedState> {
       error: true,
       emailValid: false,
       value: {},
-      commentValue: '',
     };
     this.ticket = '';
     this.applicantRef = React.createRef<HTMLDivElement>();
@@ -86,7 +84,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
   }
 
   handleEmailClick() {
-    const e = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const e = () => {
       this.setState({ show: true });
     };
 
@@ -94,7 +92,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
   }
 
   handleEmailHide() {
-    const e = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const e = () => {
       this.setState({ show: false });
     };
 
@@ -121,8 +119,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
   textValidation() {
     const comment = (e: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({ commentValue: e.target.value });
-      this.props.commentFieldValue(this.state.commentValue);
+      this.props.commentFieldValue(e.target.value);
     };
 
     return comment;

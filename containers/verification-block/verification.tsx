@@ -3,17 +3,11 @@ import { Typography, Switch } from 'lib-react-components';
 import './styles/verification.sass';
 
 interface ICheckedEvent {
-  handler: React.ReactNode;
+  handler: (i: number, type: string) => void;
 }
 
 export default class Verification extends React.Component<ICheckedEvent> {
-  handleChangeEvent: any;
-  constructor(props: ICheckedEvent) {
-    super(props);
-    this.handleChangeEvent = props.handler;
-  }
-
-  event = (i: number, type: string) => this.handleChangeEvent.bind(this, i, type);
+  event = (i: number, type: string) => this.props.handler.bind(this, i, type);
 
   render() {
     return (
