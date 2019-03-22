@@ -59,7 +59,7 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
     this.preloaderContainer = null;
   }
 
-  handleClick = (position: number, type: string) => {
+  handleCheckboxClick = (position: number, type: string) => {
     const checkboxes = this.props.demoState.checkboxes;
     let getStartedDisabled = true;
 
@@ -68,7 +68,7 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
       if (checkboxes[i] !== null) getStartedDisabled = false;
     }
     this.setState({ getStartedDisabled: (getStartedDisabled) });
-    this.props.toggleCheckbox(this.props.demoState.checkboxes);
+    this.props.toggleCheckbox(checkboxes);
   }
 
   handleEmailClick() {
@@ -99,7 +99,7 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
         this.setState({ emailValid: true });
         this.props.emailFieldValue(e.target.value);
       } else {
-        this.props.emailFieldValue(null);
+        this.props.emailFieldValue(e.target.value);
         this.setState({ emailValid: false });
       }
     };
@@ -177,7 +177,7 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
               </Typography>
           </div>
 
-          <Verification handler={this.handleClick} />
+          <Verification handler={this.handleCheckboxClick} />
 
           <Transactions
             showEmail={this.handleEmailClick()}
