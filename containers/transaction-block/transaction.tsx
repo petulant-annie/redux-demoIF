@@ -6,8 +6,8 @@ import SvgEmail from '../../components/btn-img/svg-email';
 import './styles/transaction.sass';
 
 interface IClickedEvent {
-  showEmail: any;
-  hideEmail: any;
+  showEmail: () => void;
+  hideEmail: () => void;
   applicantShown: boolean;
 }
 

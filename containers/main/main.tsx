@@ -10,6 +10,7 @@ import {
   emailFieldValue,
   commentFieldValue,
 } from '../../actions/demoActions';
+import { IInitialState } from '../../reducers/demoReducers';
 import Header from '../../components/header/header';
 import Verification from '../verification-block/verification';
 import Transactions from '../transaction-block/transaction';
@@ -24,17 +25,13 @@ import license from '../../assets/images/slider-images/slider-license.svg';
 import './styles/main.sass';
 
 interface ICheckedState {
-  checkboxes: string[];
   getStartedDisabled: boolean;
-  show: boolean;
-  showPreloader: boolean;
-  error: boolean;
+  showEmailField: boolean;
   emailValid: boolean;
-  value: {};
 }
 
-interface IProps {
-  demoState: [];
+interface IProps<IInitialState> {
+  demoState: IInitialState;
   toggleCheckbox: (checkboxes: string[]) => void;
   showPreloader: (showPreloader: boolean) => void;
   error: (error: boolean) => void;
@@ -42,27 +39,18 @@ interface IProps {
   commentFieldValue: (commentValue: string) => void;
 }
 
-class Demo extends React.Component<IProps, ICheckedState> {
+class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
   container: HTMLElement;
   preloaderContainer: HTMLElement;
   ticket: string;
   applicantRef = React.createRef<HTMLDivElement>();
   preloaderRef = React.createRef<HTMLDivElement>();
-  constructor(props: IProps) {
+  constructor(props: IProps<IInitialState>) {
     super(props);
     this.state = {
-      checkboxes: [
-        null,
-        null,
-        null,
-        null,
-      ],
       getStartedDisabled: true,
-      show: false,
-      showPreloader: false,
-      error: true,
+      showEmailField: false,
       emailValid: false,
-      value: {},
     };
     this.ticket = '';
     this.applicantRef = React.createRef<HTMLDivElement>();
@@ -72,20 +60,20 @@ class Demo extends React.Component<IProps, ICheckedState> {
   }
 
   handleClick = (position: number, type: string) => {
-    const checkboxes = this.state.checkboxes;
+    const checkboxes = this.props.demoState.checkboxes;
     let getStartedDisabled = true;
 
     checkboxes[position] == null ? checkboxes[position] = type : checkboxes[position] = null;
     for (let i = 0; i < checkboxes.length; i += 1) {
       if (checkboxes[i] !== null) getStartedDisabled = false;
     }
-    this.setState({ checkboxes: (checkboxes), getStartedDisabled: (getStartedDisabled) });
-    this.props.toggleCheckbox(this.state.checkboxes);
+    this.setState({ getStartedDisabled: (getStartedDisabled) });
+    this.props.toggleCheckbox(this.props.demoState.checkboxes);
   }
 
   handleEmailClick() {
     const e = () => {
-      this.setState({ show: true });
+      this.setState({ showEmailField: true });
     };
 
     return e;
@@ -93,7 +81,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
   handleEmailHide() {
     const e = () => {
-      this.setState({ show: false });
+      this.setState({ showEmailField: false });
     };
 
     return e;
@@ -107,10 +95,12 @@ class Demo extends React.Component<IProps, ICheckedState> {
         e.target.value.match(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/ig);
 
       if (val || numVal) {
-        this.setState({ value: { [(val ? 'email' : 'phone')]: e.target.value }, emailValid: true });
+        this.props.emailFieldValue({ [(val ? 'email' : 'phone')]: e.target.value });
+        this.setState({ emailValid: true });
         this.props.emailFieldValue(e.target.value);
       } else {
-        this.setState({ value: null, emailValid: false });
+        this.props.emailFieldValue(null);
+        this.setState({ emailValid: false });
       }
     };
 
@@ -127,12 +117,12 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
   startRequest() {
     const start = () => {
-      this.setState({ showPreloader: true, getStartedDisabled: true });
-      this.props.showPreloader(this.state.showPreloader);
+      this.props.demoState.showPreloader = true;
+      this.setState({ getStartedDisabled: true });
+      this.props.showPreloader(this.props.demoState.showPreloader);
       try {
-        apiRequests(this.state)
-          .catch(err => (this.setState({ error: false })));
-        this.props.error(this.state.error);
+        apiRequests(this.props.demoState)
+          .catch(err => (this.props.error(false)));
       }
       finally { start; }
     };
@@ -142,13 +132,14 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
   render() {
     const {
-      show,
-      showPreloader,
+      showEmailField,
       emailValid,
     } = this.state;
 
+    const showPreloader = this.props.demoState.showPreloader;
+
     let getStartedDisabled = this.state.getStartedDisabled;
-    if (this.state.show) {
+    if (this.state.showEmailField) {
       if (this.state.emailValid) getStartedDisabled = this.state.getStartedDisabled;
       else getStartedDisabled = true;
     }
@@ -164,7 +155,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
 
     const preloader = (
       <Preloader
-        error={this.state.error}
+        error={this.props.demoState.error}
         preloaderContainer={this.preloaderRef.current}
       />
     );
@@ -191,10 +182,10 @@ class Demo extends React.Component<IProps, ICheckedState> {
           <Transactions
             showEmail={this.handleEmailClick()}
             hideEmail={this.handleEmailHide()}
-            applicantShown={this.state.show}
+            applicantShown={this.state.showEmailField}
           />
 
-          {show && applicant}
+          {showEmailField && applicant}
           <div ref={this.applicantRef} />
 
           <div className="section bottom-block">
@@ -257,7 +248,7 @@ class Demo extends React.Component<IProps, ICheckedState> {
   }
 }
 
-const mapStateToProps = (state: IProps) => state;
+const mapStateToProps = (state: IProps<IInitialState>) => state;
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
   {

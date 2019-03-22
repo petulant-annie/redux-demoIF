@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
 export interface ISetCheckboxesAction extends Action {
-  checkboxes: string[];
+  checkboxes: string[] | null[];
 }
 
 export interface ISetPreloaderAction extends Action {

@@ -5,15 +5,13 @@ import './styles/applicant.sass';
 
 interface IShowEvent {
   container: HTMLElement;
-  validation: any;
-  textValidation: any;
+  validation: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  textValidation: (e: React.ChangeEvent<HTMLInputElement>) => void;
   emailValid: boolean;
 }
 
 export default class Applicant extends React.Component<IShowEvent> {
   container: HTMLElement;
-  value: string;
-  commentValue: string;
   validation: any;
   textValidation: any;
   constructor(props: IShowEvent) {

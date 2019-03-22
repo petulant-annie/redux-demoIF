@@ -6,8 +6,16 @@ import {
   ISetCommentValueAction,
 } from '../actions/demoActions';
 
-const INITIAL_STATE = {
-  checkboxes: ['', '', '', ''],
+export interface IInitialState {
+  checkboxes: string[] | null[];
+  showPreloader: boolean;
+  error: boolean;
+  value: {};
+  commentValue: string;
+}
+
+const INITIAL_STATE: IInitialState = {
+  checkboxes: [null, null, null, null],
   showPreloader: false,
   error: true,
   value: {},
@@ -22,7 +30,7 @@ const demoState = (
 ) => {
   switch (action.type) {
     case 'TOGGLE_CHECKBOX':
-      return { ...state, checkboxes: [action.checkboxes] };
+      return { ...state, checkboxes: action.checkboxes };
     case 'SHOW_PRELOADER':
       return { ...state, showPreloader: action.showPreloader };
     case 'ERROR':
