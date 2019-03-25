@@ -23,10 +23,8 @@ import id from '../../assets/images/slider-images/slider-id.svg';
 import license from '../../assets/images/slider-images/slider-license.svg';
 
 import './styles/main.sass';
-import { truncateSync } from 'fs';
 
 interface ICheckedState {
-  getStartedDisabled: boolean;
   showEmailField: boolean;
   emailValid: boolean;
 }
@@ -49,7 +47,6 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
   constructor(props: IProps<IInitialState>) {
     super(props);
     this.state = {
-      getStartedDisabled: true,
       showEmailField: false,
       emailValid: false,
     };
@@ -62,11 +59,8 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
 
   handleCheckboxClick = (position: number, type: string) => {
     const checkboxes = this.props.demoState.checkboxes;
-    let getStartedDisabled = true;
 
     checkboxes[position] == null ? checkboxes[position] = type : checkboxes[position] = null;
-    if (checkboxes.some(item => item == null)) getStartedDisabled = false;
-    this.setState({ getStartedDisabled: (getStartedDisabled) });
     this.props.toggleCheckbox(checkboxes);
   }
 
@@ -117,7 +111,6 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
   startRequest() {
     const start = () => {
       this.props.demoState.showPreloader = true;
-      this.setState({ getStartedDisabled: true });
       this.props.showPreloaderAction(this.props.demoState.showPreloader);
       try {
         apiRequests(this.props.demoState)
@@ -137,9 +130,17 @@ class Demo extends React.Component<IProps<IInitialState>, ICheckedState> {
 
     const showPreloader = this.props.demoState.showPreloader;
 
-    let getStartedDisabled = this.state.getStartedDisabled;
-    if (this.state.showEmailField) {
-      (this.state.emailValid) ? getStartedDisabled : getStartedDisabled = true;
+    let checkboxesOn = false;
+    let getStartedDisabled;
+    if (this.props.demoState.checkboxes.some(item => item !== null)) {
+      checkboxesOn = true;
+    }
+    if (checkboxesOn) {
+      if (showEmailField) {
+        if (emailValid) {
+          getStartedDisabled = false;
+        }
+      }
     }
 
     const applicant = (
