@@ -25,12 +25,12 @@ export const toggleCheckbox = (checkboxes: ISetCheckboxesAction) => ({
   type: 'TOGGLE_CHECKBOX',
 });
 
-export const showPreloader = (showPreloader: ISetPreloaderAction) => ({
+export const showPreloaderAction = (showPreloader: ISetPreloaderAction) => ({
   showPreloader,
   type: 'SHOW_PRELOADER',
 });
 
-export const error = (error: ICheckErrorAction) => ({
+export const errorAction = (error: ICheckErrorAction) => ({
   error,
   type: 'ERROR',
 });

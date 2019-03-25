@@ -54,7 +54,7 @@ export default function apiRequests(state: any) {
   }
 
   function getStarted() {
-    if (state.show) {
+    if (state.showEmailField) {
       return getTicket()
         .then((ticket: any) => {
           return createApplicant(ticket)
